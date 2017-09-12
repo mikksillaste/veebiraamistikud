@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                theme: "theme2",//theme1
+                title:{
+                    text: "Joonis"
+                },
+                animationEnabled: false,   // change to true
+                data: [
+                    {
+                        // Change type to "bar", "area", "spline", "pie",etc.
+                        type: "pie",
+                        dataPoints: [
+                            { label: "apple",  y: 10  },
+                            { label: "orange", y: 15  },
+                            { label: "banana", y: 25  },
+                            { label: "mango",  y: 30  },
+                            { label: "grape",  y: 28  }
+                        ]
+                    }
+                ]
+            });
+            chart.render();
+            chart.options.title.text="KUKU";
+            chart.options.data[0].dataPoints[2].label="banaan";
+            chart.render();
+            //Koostage CSV-failid nimede ja pikkustega
+            //Vastavalt nupuvajutusele näidatakse sobiva faili andmeid joonisel
+        }
+    </script>
+
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+</html>

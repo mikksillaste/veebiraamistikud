@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List js näited</title>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script>
+        window.onload = function () {
+            var options = {
+                valueNames: [ 'eesnimi', 'pikkus' ],
+                item: '<li><h3 class="eesnimi"></h3><p class="pikkus"></p></li>'
+            };
+
+            var values = [
+                { eesnimi: 'Ants', pikkus:'185' },
+                { eesnimi: 'Tiiu', pikkus:'155' }
+            ];
+
+            var list = new List('inimeste-list', options, values);
+
+            var dps = [];
+
+            $.each(values, function (i, item) {
+                dps.push({label: item.eesnimi, y: Number(item.pikkus) });
+
+            });
+
+            chart = new CanvasJS.Chart("chartContainer", {
+                theme: "theme2",
+                title: {
+                    text: "Pikkused"
+                },
+                data: [
+                    {
+                        type: "column",
+                        dataPoints: dps
+                    }
+                ]
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="inimeste-list">
+    <ul class="list"></ul>
+</div>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<input type="button" value="Lae Nimed1" onclick="laeFail()">
+</body>
+</html>

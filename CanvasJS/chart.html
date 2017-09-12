@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "mehed.txt",
+                dataType: "text",
+                success: function (data) { processData(data); }
+            });
+
+            function processData(allText) {
+                var allLinesArray = allText.split('\n');
+                if (allLinesArray.length > 0) {
+                    dataPoints = [];
+                    for (i = 0; i <= allLinesArray.length - 1; i++) {
+                        rowData = allLinesArray[i].split(',');
+                        if(rowData && rowData.length > 1)
+                            dataPoints.push({ label: rowData[0], y: parseInt(rowData[1]) });
+                    }
+                    chart.options.data[0].dataPoints = dataPoints;
+                    chart.render();
+                }
+            }
+
+            chart = new CanvasJS.Chart("chartContainer", {
+                theme: "theme2",
+                title: {
+                    text: "Pikkused"
+                },
+                data: [
+                    {
+                        type: "column",
+                        dataPoints: []
+                    }
+                ]
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<input type="button" value="Mehed">
+<input type="button" value="Naised">
+</body>
+</html>

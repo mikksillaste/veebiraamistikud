@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List js näited</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script>
+        var loetelu;
+        function algus(){
+            loetelu=new List('isikud', {valueNames:['eesnimi', 'synniaasta']});
+            loetelu.add({eesnimi:'Mari', synniaasta:2008});
+        }
+        //Looge tekstiväljad ja nupp isiku lisamiseks
+        function lisaisik(){
+            loetelu.add(
+                {eesnimi:document.getElementById("kast1").value,
+                    synniaasta:document.getElementById("kast2").value}
+            );
+        }
+        function eemaldaisik(){
+            loetelu.remove("eesnimi", document.getElementById("kast3").value);
+        }
+    </script>
+    <style>
+        .eesnimi, .synniaasta{display: inline}
+    </style>
+</head>
+<body onload="algus()">
+<input type="text" id="kast1" />
+<input type="text" id="kast2" />
+<input type="button" value="Lisa" onclick="lisaisik()" /><br />
+<input type="text" id="kast3" />
+<input type="button" value="Eemalda" onclick="eemaldaisik()" /><br />
+<div id="isikud">
+    <input class="search" /><br />
+    <span class="sort" data-sort="eesnimi">Eesnime järgi</span>
+    <span class="sort" data-sort="synniaasta">Sünniaasta järgi</span>
+    <ul class="list">
+        <li>
+            <p class="eesnimi">Juku</p>
+            <p class="synniaasta">2005</p>
+        </li>
+        <li>
+            <p class="eesnimi">Kati</p>
+            <p class="synniaasta">2007</p>
+        </li>
+        <li>
+            <p class="eesnimi">Mati</p>
+            <p class="synniaasta">2006</p>
+        </li>
+    </ul>
+</div>
+</body>
+
+</html>
