@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lodash</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+        function algus() {
+            var pikkused = [175, 178, 183, 169, 173, 174];
+
+            document.getElementById("vastus").innerHTML = _.map(pikkused, function(pikkus) {
+                return pikkus / 100
+            });
+
+            document.getElementById("vastus2").innerHTML = _.mean(pikkused);
+
+            //Suurima ja vähima pikkuse vahe
+            document.getElementById("vastus3").innerHTML = _.max(pikkused) - _.min(pikkused);
+
+            //Suurima viimase numbriga pikkus
+            document.getElementById("vastus4").innerHTML = _.maxBy(pikkused, (pikkus) => pikkus % 10);
+
+            document.getElementById("vastus5").innerHTML = _.random() + " " + _.random(10, 100) + " " + _.random(10, 100, true);
+
+            var korrutis = _.reduce(pikkused, function(puhver, pikkus) {
+                return puhver*pikkus}, 1)
+
+            document.getElementById("vastus6").innerHTML = Math.pow(korrutis, 1.0/pikkused.length);
+
+        }
+    </script>
+</head>
+<body onload="algus()">
+<div id="vastus"></div>
+<div id="vastus2"></div>
+<div id="vastus3"></div>
+<div id="vastus4"></div>
+<div id="vastus5"></div>
+<div id="vastus6"></div>
+</body>
+</html>

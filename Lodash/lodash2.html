@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lodash</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+        function algus() {
+            var pikkused = [175, 178, 183, 169, 173, 174];
+
+            var alatesPikast = _.dropWhile(pikkused, function(pikkus) {
+                return pikkus < 180
+            });
+
+            //eemaldage lisaks lõpust kuni leitakse alla 170cm inimene
+            var alatesLyhikesest = _.dropRightWhile(pikkused, function(pikkus) {
+                return pikkus >= 170
+            });
+
+            var pikad = _.filter(pikkused, function(pikkus) {
+                return pikkus > 175
+            });
+
+            document.getElementById("vastus").innerHTML = alatesPikast;
+            document.getElementById("vastus2").innerHTML = alatesLyhikesest;
+            document.getElementById("vastus3").innerHTML = pikad;
+        }
+    </script>
+</head>
+<body onload="algus()">
+<div id="vastus"></div>
+<div id="vastus2"></div>
+<div id="vastus3"></div>
+</body>
+</html>

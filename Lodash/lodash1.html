@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lodash</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+        function algus() {
+            document.getElementById("vastus").innerHTML = _.difference([2, 3], [2, 1]);
+        }
+    </script>
+</head>
+<body onload="algus()">
+    <div id="vastus"></div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lodash</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+        function algus() {
+
+            document.getElementById("vastus").innerHTML = _.times(10, () => _.random(1, 10));
+
+            document.getElementById("vastus2").innerHTML = _.times(10, function() {
+                return 130 + _.random(0, 20) + _.random(0, 20);
+            });
+
+            document.getElementById("vastus3").innerHTML = JSON.stringify(_.countBy(_.times(1000, function() {
+                return 130 + _.random(0, 20) + _.random(0, 20);
+            })));
+
+        }
+    </script>
+</head>
+<body onload="algus()">
+<div id="vastus"></div>
+<div id="vastus2"></div>
+<div id="vastus3"></div>
+</body>
+</html>
