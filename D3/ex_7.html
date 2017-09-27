@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Exercise 5</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.2/d3.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+
+            var svg = d3.select("body")
+                .append("svg")
+                .attr("width", "100%")
+                .attr("height", "100%");
+
+            var dataEnter = svg.selectAll("rect")
+                .data([8, 22, 31, 36, 48, 17, 25]).enter();
+
+            var graphHeight = 450;
+            var barWidth = 80;
+            var barSeparation = 10;
+            var maxData = 50;
+            var barHeightMultiplier = graphHeight / maxData;
+            var horizontalBarDistance = barWidth + barSeparation;
+
+            dataEnter.append("rect")
+                .attr("x", function(d, i) {
+                    return i * horizontalBarDistance;
+                })
+                .attr("y", function(d) {
+                    return graphHeight - d * barHeightMultiplier
+                })
+                .attr("width", function() {
+                    return barWidth
+                })
+                .attr("height", function(d) {
+                    return d * barHeightMultiplier;
+                });
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
