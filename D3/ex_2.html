@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise 2</title>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+</head>
+
+<body>
+<div id="ex2">
+    <p>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam
+    </p>
+
+    <p>
+        Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
+    </p>
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam
+    </p>
+
+    <p>
+        Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
+    </p>
+</div>
+</body>
+</html>
+
+<script>
+    // Keskmiselt võiks aega võtta ~3 minutit.
+    // Ette on antud HTMLi template’i, milles asuvad 4 paragraafi suvalise tekstiga ja array 4 suvalise arvuga.
+    // Eesmärgiks on array’d läbides määrata paragraafidele värv selle järgi, kas paragraafiga samal indeksil olev arv arrays on paaris või paaritu.
+    // Näiteks, esimene arv array's on 10, seega esimene <p> element võiks olla näiteks roheline
+    // Seda võiks teha kasutades D3'e selectAll'i (https://github.com/d3/d3-selection/blob/master/README.md#selectAll)
+    var random_numbers = [10, 15, 20, 25]
+
+    d3.selectAll("p").style("color", function(v, i) {
+        return random_numbers[i] % 2 == 0 ? "green" : "blue"
+    });
+</script>

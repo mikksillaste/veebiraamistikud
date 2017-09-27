@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Exercise 1</title>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+</head>
+
+<body>
+<div id="ex1">
+
+</div>
+</body>
+</html>
+<script>
+    // Aega võiks võtta ~3 minutit
+    // Ette on antud tühi HTML leht, millel asub üks div ID'ga "ex1"
+    // Eesmärgiks on kasutades D3'e selecti lisada sinna üks <p> element, tekstiga "Hello World!"
+    // https://github.com/d3/d3-selection/blob/master/README.md#select
+    d3.select("#ex1").append("p").text("Hello World!");
+</script>

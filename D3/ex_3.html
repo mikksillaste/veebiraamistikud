@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise 3</title>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+</head>
+
+<body>
+
+</body>
+</html>
+
+<script>
+    // Keskmine lahendusaeg ~3 minutit
+    // Ette on antud hulk suvalisi numbreid
+    var random_numbers = [5, 10, 15, 20, 25, 30];
+    // Eesmärk on iga numbri kohta genereerida paragraaf, mille sisuks oleks see number
+    // Kuna lehel ühtegi <p> elementi ei ole, on vaja kasutada D3'e meetodit "enter"
+    // https://d3js.org/#enter-exit
+    d3.select("body")
+        .selectAll("p")
+        .data(random_numbers)
+        .enter().append("p")
+        .text(function(d) {return d});
+</script>

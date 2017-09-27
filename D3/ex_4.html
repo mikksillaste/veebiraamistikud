@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise 4</title>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+</head>
+<body>
+<div class="chart">
+</div>
+</body>
+</html>
+
+<script>
+    // Eesmأ¤rk on iga vahemaa teisendada kilomeetriteks ning lisada span selle pikkusega div'i "chart"
+    // أœks miil on ~1.6 kilomeetrit
+    // Vahemaad vأµiks saada kujutatud mitme D3 meetodi chain'ides
+    // Kأµige madalama vأ¤أ¤rtuse vأµiks kuvada ka siniselt ja kأµige kأµrgema vأ¤أ¤rtuse punaselt.
+    var data = [50, 250, 360, 150, 100, 350, 125]
+
+    d3.select(".chart")
+        .selectAll("div")
+        .data(data).enter()
+        .append("div")
+        .transition()
+        .duration(3000)
+        .style("width", function(d) { return d * 1.6 + "px"} )
+        .text(function(d) { return d * 1.6 + "px"})
+        .style("background-color", function(d) {
+            switch(d) {
+                case (d3.max(data)):
+                    return "red";
+                    break;
+                case (d3.min(data)):
+                    return "blue";
+                    break;
+                default:
+                    return "green";
+                    break;
+            }
+        })
+</script>
+
+<style>
+    .chart div {
+        font: 10px sans-serif;
+        text-align: right;
+        background-color: green;
+        padding: 3px;
+        width: 0px;
+        margin: 1px;
+        color: white;
+    }
+</style>
