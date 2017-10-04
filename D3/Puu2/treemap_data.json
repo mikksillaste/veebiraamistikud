@@ -1,0 +1,72 @@
+{
+	"name": "Tallinn",
+	"value": 100,
+	"children": [{
+			"name": "Lasnamäe",
+			"value": 75,
+			"children":[{"name":"Mustakivi", "value":75},
+{"name":"Pae", "value":75},{"name":"Laagna", "value":75},
+{"name":"Seli", "value":75},{"name":"Priisle", "value":75},
+{"name":"Katleri", "value":75}]
+		},
+		{
+			"name": "Mustamäe",
+			"value": 75,
+			"children": [{
+					"name": "Kadaka",
+					"value": 25
+				},
+				{
+					"name": "Mustamäe",
+					"value": 25
+				},
+				{
+					"name": "Siili",
+					"value": 25
+				}
+			]
+		},
+		{
+			"name": "Kesklinn",
+			"value": 75,
+			"children":[
+				{"name": "Kadriorg", "value":25},
+				{"name": "Vanalinn", "value":25}
+			
+			]
+		},
+		{
+			"name": "Nõmme",
+			"value": 75,
+			"children": [{
+					"name": "Hiiu",
+					"value": 25
+				},
+				{
+					"name": "Liiva",
+					"value": 25
+				},
+				{
+					"name": "Nõmme",
+					"value": 25
+				}
+			]
+		},
+		{"name":"Pirita", "value":75, "children":[
+{"name":"Mähe", "value":25},
+				{"name":"Pirita", "value":25}]},
+		{"name":"Haabersti", "value":75, "children": [
+{"name":"Haabersti", "value":25},
+				{"name":"Rocca al Mare", "value":25},{"name":"Tiskre", "value":25},
+				{"name":"Kakumäe", "value":25}]},
+		{"name":"Põhja-Tallinn", "value":75,
+			"children":[
+				{"name":"Kalamaja", "value":25},
+				{"name":"Kelmiküla", "value":25},
+				{"name":"Kopli", "value":75}
+]
+		},
+{"name":"Kalamaja", "value":25, "children":[{"name":"Järve", "value":25},
+				{"name":"Tondi", "value":25},{"name":"Lilleküla", "value":25}]}
+	]
+}
