@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="d3-grid.js"></script>
+</head>
+<body>
+<input type="button" value="lisa" onclick="push()" />
+<input type="button" value="eemalda" onclick="pop()" />
+<script>
+    var rects=[{},{},{},{} ];
+
+    var width=900,
+        height=900;
+
+    var rectGrid=d3.layout.grid(rects)
+        .bands().
+        size([600, 600]).padding([0.1, 0.1]);
+
+    var svg=d3.select('body').append('svg').attr({
+        width: width,
+        height: height
+    }).append("g").attr("transform", "translate(70, 70)");
+
+    function update(){
+        var rect=svg.selectAll(".rect").data(rectGrid(rects));
+        rect.enter().append("rect").attr("class", "rect").
+        attr("width", rectGrid.nodeSize()[0]).
+        attr("height", rectGrid.nodeSize()[1]).
+        attr("transform", function(d){return "translate("+d.x+","+d.y+")";})
+        rect.transition().attr("width", rectGrid.nodeSize()[0]).attr("height", rectGrid.nodeSize()[1]).
+        attr("transform", function(d){return "translate("+d.x+","+d.y+")";}).style("opacity", 1);
+        rect.exit().transition().style("opacity", 1e-6).remove();
+    }
+    update();
+
+    function push(){
+        rects.push({});
+        update();
+    }
+
+    function pop(){
+        rects.pop({});
+        update();
+    }
+</script>
+</body>
+</html>
