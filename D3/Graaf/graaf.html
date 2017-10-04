@@ -8,15 +8,57 @@
     <link rel="stylesheet" href="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.css">
     <script src="http://d3js.org/d3.v3.js"></script>
     <script src="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.js"></script>
-
-    <script>
-        var andmestik = {
-
-        }
-    </script>
 </head>
 <body>
 <div class="chart-container"></div>
+<div class="chart-container2"></div>
+<div class="chart-container3"></div>
+<script>
+    var andmestik = [
+        {
+            className: 'Madis',
+            axes: [
+                {axis: "Pikkus", value: 180},
+                {axis: "Vanus", value: 30},
+                {axis: "Laste arv", value: 2}
+            ]
+        },
+        {
+            className: 'Mari',
+            axes: [
+                {axis: "Pikkus", value: 170},
+                {axis: "Vanus", value: 25},
+                {axis: "Laste arv", value: 1}
+            ]
+        }
 
+    ];
+
+    RadarChart.draw(".chart-container", andmestik);
+
+    var eriVarvid = {
+        color: function() {
+            c = ['red', 'yellow', 'pink', 'green', 'blue'];
+            m = c.length - 1;
+            x = parseInt(Math.random()*100);
+            return c[x % m];
+        }
+    }
+
+    RadarChart.draw(".chart-container2", andmestik, eriVarvid);
+
+    function uusJoonis() {
+        andmed = [];
+        for(var i = 0; i<3; i++) {
+            andmed.push([
+                {axis: "Pikkus", value: Math.floor((Math.random()*100)+120)},
+                {axis: "Vanus", value: Math.floor((Math.random()*100)+1)},
+                {axis: "laste arv", value: Math.floor((Math.random()*2)+1)}
+            ])
+        }
+        RadarChart.draw(".chart-container3", andmed);
+    }
+    uusJoonis();
+</script>
 </body>
 </html>
