@@ -1,0 +1,33 @@
+<html>
+<head>
+
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAI-smjqcr4z-ai68p1KYCoJgPoVvrlWwI",
+            authDomain: "esimene-76873.firebaseapp.com",
+            databaseURL: "https://esimene-76873.firebaseio.com",
+            projectId: "esimene-76873",
+            storageBucket: "",
+            messagingSenderId: "553289504008"
+        };
+        firebase.initializeApp(config);
+        firebase.database().ref().child("nimed").on("child_added", function(kirjeviit){
+            document.getElementById("vastus").innerHTML+="<br />"+kirjeviit.val();
+        });
+        function salvesta(){
+            var data=[document.getElementById("kast").value, document.getElementById("kast2").value];
+            firebase.database().ref().child('nimed').push(data);
+            document.getElementById("kast").value="";
+            document.getElementById("kast2").value="";
+        }
+    </script>
+</head>
+<body>
+<input type="text" id="kast" />
+<input type="number" id="kast2" />
+<input type="button" value="nupp" onclick="salvesta()" />
+<div id="vastus"></div>
+</body>
+</html>

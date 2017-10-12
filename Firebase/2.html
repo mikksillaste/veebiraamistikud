@@ -1,0 +1,59 @@
+
+<html>
+<head>
+
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAI-smjqcr4z-ai68p1KYCoJgPoVvrlWwI",
+            authDomain: "esimene-76873.firebaseapp.com",
+            databaseURL: "https://esimene-76873.firebaseio.com",
+            projectId: "esimene-76873",
+            storageBucket: "",
+            messagingSenderId: "553289504008"
+        };
+
+
+
+        window.onload = function () {
+            chart = new CanvasJS.Chart("joonis", {
+                title:{
+                    text: "Oma joonis"
+                },
+                data: [
+                    {
+                        type: "column",
+                        dataPoints: [
+                        ]
+                    }
+                ]
+            });
+            chart.render();
+        }
+
+        firebase.initializeApp(config);
+        dataPoints=[];
+        firebase.database().ref().child("nimed").on("child_added", function(kirjeviit){
+            document.getElementById("vastus").innerHTML+="<br />"+kirjeviit.val();
+            dataPoints.push({label:kirjeviit.val()[0], y: parseInt(kirjeviit.val()[1])});
+            chart.options.data[0].dataPoints=dataPoints;
+            chart.render();
+        });
+        function salvesta(){
+            var data=[document.getElementById("kast").value, document.getElementById("kast2").value];
+            firebase.database().ref().child('nimed').push(data);
+            document.getElementById("kast").value="";
+            document.getElementById("kast2").value="";
+        }
+    </script>
+</head>
+<body>
+<input type="text" id="kast" />
+<input type="number" id="kast2" />
+<input type="button" value="nupp" onclick="salvesta()" />
+<div id="vastus"></div>
+<div id="joonis"></div>
+</body>
+</html>
