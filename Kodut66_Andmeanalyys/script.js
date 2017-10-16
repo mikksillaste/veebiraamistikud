@@ -9,15 +9,16 @@ var config = {
 };
 firebase.initializeApp(config);
 
-var exampleData = firebase.database().ref().on("child_added", function(snapshot) {
-    console.log(snapshot.val());
-    return snapshot.val();
-}, function (errorObject) {
-    console.log("The read failed: " + errorObject.code);
-});
+function getData() {
+    firebase.database().ref().on("value", function(snapshot) {
+        var exampleData;
+        console.log(JSON.stringify(snapshot.val()));
+        exampleData = JSON.stringify(snapshot.val());
+        return exampleData;
+    });
+}
 
-console.log(exampleData);
-
+console.log(getData());
 /*var exampleData = [ {
     "children" : [ {
         "children" : [ {
@@ -64,7 +65,7 @@ var svg = d3.select("body").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-root = exampleData[0];
+root = getData();
 root.x0 = height / 2;
 root.y0 = 0;
 
