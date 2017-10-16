@@ -10,7 +10,8 @@ var exampleData = [
                     {
                         "name": "Vastus 1",
                         "parent": "Teema 1",
-                        "text": "sadasdasdkasjdkajskdjaskdjsakjdaskjdk"
+                        "text": "sadasdasdkasjdkajskdjaskdjsakjdaskjdk, kffjdsfjkdsjfkjs, sdkvkdskfjdskfjsk, skdjfkdsjfksdjfks, sdfksjdfksjfks, sdkjfksdjfkjsdf" +
+                        "klkdflkslfkslf, ksdfksdkfjskjfksf, skdfksjfksjfksjfkjsf, ksdjfkjsdfkjsdkfjsk, jkjdkfjskfjsk, jksdjfkjsdfksdjfk"
                     },
                     {
                         "name": "Vastus 2",
@@ -64,6 +65,12 @@ d3.select(self.frameElement).style("height", "500px");
 
 function update(source) {
 
+
+    var link;
+    var nodeExit;
+    var nodeUpdate;
+    var nodeEnter;
+    var node;
     // Compute the new tree layout.
     var nodes = tree.nodes(root).reverse(),
         links = tree.links(nodes);
@@ -72,11 +79,11 @@ function update(source) {
     nodes.forEach(function(d) { d.y = d.depth * 180; });
 
     // Update the nodes…
-    var node = svg.selectAll("g.node")
+    node = svg.selectAll("g.node")
         .data(nodes, function(d) { return d.id || (d.id = ++i); });
 
     // Enter any new nodes at the parent's previous position.
-    var nodeEnter = node.enter().append("g")
+    nodeEnter = node.enter().append("g")
         .attr("class", "node")
         .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
         .on("click", click)
@@ -85,7 +92,7 @@ function update(source) {
             // The class is used to remove the additional text later
                 g.append('text')
                 .classed('forumAnswer', true)
-                .attr('x', 50)
+                .attr('x', 0)
                 .attr('y', 30)
                 .text(function(d) { return d.text; });
         })
@@ -99,14 +106,15 @@ function update(source) {
         .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
     nodeEnter.append("text")
-        .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
+        .attr("x", function(d) { return d.children || d._children ? -0 : 13; })
+        .attr("y", function(d) { return d.children || d._children ? -20 : 0})
         .attr("dy", ".35em")
         .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
         .text(function(d) { return d.name; })
         .style("fill-opacity", 1e-6);
 
     // Transition nodes to their new position.
-    var nodeUpdate = node.transition()
+    nodeUpdate = node.transition()
         .duration(duration)
         .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
 
@@ -118,7 +126,7 @@ function update(source) {
         .style("fill-opacity", 1);
 
     // Transition exiting nodes to the parent's new position.
-    var nodeExit = node.exit().transition()
+    nodeExit = node.exit().transition()
         .duration(duration)
         .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
         .remove();
@@ -130,7 +138,7 @@ function update(source) {
         .style("fill-opacity", 1e-6);
 
     // Update the links…
-    var link = svg.selectAll("path.link")
+    link = svg.selectAll("path.link")
         .data(links, function(d) { return d.target.id; });
 
     // Enter any new links at the parent's previous position.
