@@ -9,11 +9,14 @@ var config = {
 };
 firebase.initializeApp(config);
 
-firebase.database().ref().on("child_added", function(snapshot) {
+var exampleData = firebase.database().ref().on("child_added", function(snapshot) {
     console.log(snapshot.val());
+    return snapshot.val();
 }, function (errorObject) {
     console.log("The read failed: " + errorObject.code);
 });
+
+console.log(exampleData);
 
 /*var exampleData = [ {
     "children" : [ {
