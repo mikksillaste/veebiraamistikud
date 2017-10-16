@@ -1,39 +1,45 @@
-var exampleData = [
-    {
-        "name": "Foorum",
-        "parent": "null",
-        "children": [
-            {
-                "name": "Teema 1",
-                "parent": "Foorum",
-                "children": [
-                    {
-                        "name": "Vastus 1",
-                        "parent": "Teema 1",
-                        "text": "sadasdasdkasjdkajskdjaskdjsakjdaskjdk, kffjdsfjkdsjfkjs, sdkvkdskfjdskfjsk, skdjfkdsjfksdjfks, sdfksjdfksjfks, sdkjfksdjfkjsdf" +
-                        "klkdflkslfkslf, ksdfksdkfjskjfksf, skdfksjfksjfksjfkjsf, ksdjfkjsdfkjsdkfjsk, jkjdkfjskfjsk, jksdjfkjsdfksdjfk"
-                    },
-                    {
-                        "name": "Vastus 2",
-                        "parent": "Teema 1",
-                        "text": "dsajdjhasjd, sadasd, asdasd, asd aijd a"
-                    }
-                ]
-            },
-            {
-                "name": "Teema 2",
-                "parent": "Foorum",
-                "children": [
-                    {
-                        "name": "Vastus 1",
-                        "parent": "Teema 2",
-                        "text": "asdasd jasdkjakd ja kasdk mk, asdjasjd"
-                    }
-                ]
-            }
-        ]
-    }
-];
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyBuJXviQTOP9-V7cko4fw6Z7PEtsQP6fBE",
+    authDomain: "andmeanalyyskodut66foorum.firebaseapp.com",
+    databaseURL: "https://andmeanalyyskodut66foorum.firebaseio.com",
+    projectId: "andmeanalyyskodut66foorum",
+    storageBucket: "",
+    messagingSenderId: "6465161516"
+};
+firebase.initializeApp(config);
+
+firebase.database().ref().on("child_added", function(snapshot) {
+    console.log(snapshot.val());
+}, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+});
+
+/*var exampleData = [ {
+    "children" : [ {
+        "children" : [ {
+            "name" : "Vastus 1",
+            "parent" : "Teema 1",
+            "text" : "sadasdasdkasjdkajskdjaskdjsakjdaskjdk, kffjdsfjkdsjfkjs, sdkvkdskfjdskfjsk, skdjfkdsjfksdjfks, sdfksjdfksjfks, sdkjfksdjfkjsdf klkdflkslfkslf, ksdfksdkfjskjfksf, skdfksjfksjfksjfkjsf, ksdjfkjsdfkjsdkfjsk, jkjdkfjskfjsk, jksdjfkjsdfksdjfk"
+        }, {
+            "name" : "Vastus 2",
+            "parent" : "Teema 1",
+            "text" : "dsajdjhasjd, sadasd, asdasd, asd aijd a"
+        } ],
+        "name" : "Teema 1",
+        "parent" : "Foorum"
+    }, {
+        "children" : [ {
+            "name" : "Vastus 1",
+            "parent" : "Teema 2",
+            "text" : "asdasd jasdkjakd ja kasdk mk, asdjasjd"
+        } ],
+        "name" : "Teema 2",
+        "parent" : "Foorum"
+    } ],
+    "name" : "Foorum",
+    "parent" : "null"
+} ];*/
 
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
     width = 960 - margin.right - margin.left,
