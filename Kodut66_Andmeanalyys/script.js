@@ -18,7 +18,6 @@ function getData() {
     });
 }
 
-console.log(getData());
 /*var exampleData = [ {
     "children" : [ {
         "children" : [ {
