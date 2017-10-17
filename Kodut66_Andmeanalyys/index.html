@@ -5,20 +5,19 @@
     <title>Andmeanalüüs kodutöö</title>
 
     <link rel="stylesheet" href="style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.5.2/firebase.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
 </head>
 <body>
     <script type="text/javascript" src="script.js"></script>
     <div class="teema">
-        Lisa Teema: <input type="text" name="teema"><br>
+        Lisa Teema: <input type="text" id="teema"><br>
         <input type="submit" value="Lisa Teema">
     </div>
     <div class="vastus">
-        Teema: <select></select><br>
-        <textarea rows="4" cols="50"></textarea><br>
-        <input type="submit" value="Lisa Vastus">
+        Teema: <input type="text" id="teema2"><br>
+        <textarea id="vastus" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Lisa Vastus" onclick="salvesta()">
     </div>
     <div id="contacts"></div>
 </body>

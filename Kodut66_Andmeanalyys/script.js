@@ -10,7 +10,7 @@ var config = {
 firebase.initializeApp(config);
 
 firebase.database().ref().on("child_added", function(snapshot) {
-        console.log(snapshot.val());
+        console.log(snapshot.val().children);
         var exampleData = snapshot.val();
 
     var margin = {top: 20, right: 120, bottom: 20, left: 120},
@@ -161,3 +161,9 @@ firebase.database().ref().on("child_added", function(snapshot) {
     }
 });
 
+function salvesta(){
+    var data=[document.getElementById("teema2").value, document.getElementById("vastus").value];
+    firebase.database().ref().child("Foorum").push(data);
+    document.getElementById("teema2").value="";
+    document.getElementById("vastus").value="";
+}
