@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)http://test2.multirootor.eu/veebirakendus/kodune/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Firebase</title>
+  <link rel="stylesheet" type="text/css" href="./Firebase_files/bootstrap.css">
+  <script src="./Firebase_files/jquery-3.2.1.min.js"></script>
+  <script src="./Firebase_files/aes.js"></script>
+  <script src="./Firebase_files/firebase-app.js"></script>
+  <script src="./Firebase_files/firebase-auth.js"></script>
+  <script src="./Firebase_files/firebase-database.js"></script>
+  <script src="./Firebase_files/bootstrap.js"></script>
+<script type="text/javascript">// Promises 
+var _eid_promises = {}; 
+// Turn the incoming message from extension 
+// into pending Promise resolving 
+window.addEventListener("message", function(event) { 
+    if(event.source !== window) return; 
+    if(event.data.src && (event.data.src === "background.js")) { 
+        console.log("Page received: "); 
+        console.log(event.data); 
+        // Get the promise 
+        if(event.data.nonce) { 
+            var p = _eid_promises[event.data.nonce]; 
+            // resolve 
+            if(event.data.result === "ok") { 
+                if(event.data.signature !== undefined) { 
+                    p.resolve({hex: event.data.signature}); 
+                } else if(event.data.version !== undefined) { 
+                    p.resolve(event.data.extension + "/" + event.data.version); 
+                } else if(event.data.cert !== undefined) { 
+                    p.resolve({hex: event.data.cert}); 
+                } else { 
+                    console.log("No idea how to handle message"); 
+                    console.log(event.data); 
+                } 
+            } else { 
+                // reject 
+                p.reject(new Error(event.data.result)); 
+            } 
+            delete _eid_promises[event.data.nonce]; 
+        } else { 
+            console.log("No nonce in event msg"); 
+        } 
+    } 
+}, false); 
+ 
+ 
+function TokenSigning() { 
+    function nonce() { 
+        var val = ""; 
+        var hex = "abcdefghijklmnopqrstuvwxyz0123456789"; 
+        for(var i = 0; i < 16; i++) val += hex.charAt(Math.floor(Math.random() * hex.length)); 
+        return val; 
+    } 
+ 
+    function messagePromise(msg) { 
+        return new Promise(function(resolve, reject) { 
+            // amend with necessary metadata 
+            msg["nonce"] = nonce(); 
+            msg["src"] = "page.js"; 
+            // send message 
+            window.postMessage(msg, "*"); 
+            // and store promise callbacks 
+            _eid_promises[msg.nonce] = { 
+                resolve: resolve, 
+                reject: reject 
+            }; 
+        }); 
+    } 
+    this.getCertificate = function(options) { 
+        var msg = {type: "CERT", lang: options.lang, filter: options.filter}; 
+        console.log("getCertificate()"); 
+        return messagePromise(msg); 
+    }; 
+    this.sign = function(cert, hash, options) { 
+        var msg = {type: "SIGN", cert: cert.hex, hash: hash.hex, hashtype: hash.type, lang: options.lang, info: options.info}; 
+        console.log("sign()"); 
+        return messagePromise(msg); 
+    }; 
+    this.getVersion = function() { 
+        console.log("getVersion()"); 
+        return messagePromise({ 
+            type: "VERSION" 
+        }); 
+    }; 
+}</script></head>
+
+<body>
+  <div id="logArea" style="display: none;">
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Email">
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Password">
+    <input type="submit" id="login" value="Log In">
+    <input type="submit" id="register" value="Register">
+  </div>
+  <div id="userData" style="display: none;">
+    <h3>Chatiga ühinemiseks pead sisestama oma nime:</h3>
+    <label for="displayName">Nimi</label>
+    <input type="text" id="displayName" placeholder="displayName">
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="email">
+    <label for="photoURL">PhotoURL</label>
+    <input type="text" id="photoURL" placeholder="photoURL">
+    <input type="submit" id="changeData" value="Mine vastlusesse">
+  </div>
+  <div id="chatWindow" style="display: block;">
+    <input type="submit" id="muudaInfot" value="Muuda infot">
+    <textarea name="textArea" id="textArea" cols="30" rows="5"></textarea>
+    <input type="submit" id="sendText" value="Saada sõnum">
+  </div>
+  <div id="vastus">null: &lt;html&gt;Something&lt;/html&gt;<br>dog: <br>null: asd<br>dog: <br>null: asd<br>null: ads<br>null: abc<br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>ole: <br>00000: ole<br>00000: <br>00000: <br>00000: <br>00000: <br>00000: <br>00000: <br>00000: <br>00000: <br>00000: <br>00000: <br>00000: <br>00000: <br>00000: <br>dog: xd<br>null: v<br></div>
+
+<script src="./Firebase_files/js.js"></script>
+
+</body></html>
