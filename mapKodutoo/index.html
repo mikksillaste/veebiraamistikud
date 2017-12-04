@@ -12,6 +12,9 @@
             crossorigin=""></script>
 </head>
 <body>
+    <div id="textbox">
+        <textarea id="text"></textarea>
+    </div>
     <div id="mapid"></div>
     <script>
         var mymap = L.map('mapid', {
@@ -27,8 +30,9 @@
         var markersLayer = L.layerGroup().addTo(mymap);
 
         function addMarkerToMap(clickLoc) {
-            L.marker(clickLoc.latlng).bindPopup('Latitude: ' + clickLoc.latlng.lat.toFixed(4) + '<br>' + 'Longitude: ' + clickLoc.latlng.lng.toFixed(4))
+            L.marker(clickLoc.latlng).bindPopup(document.getElementById('text').value)
                 .addTo(markersLayer);
+            console.log('Latitude: ' + clickLoc.latlng.lat.toFixed(4) + ' ' + 'Longitude: ' + clickLoc.latlng.lng.toFixed(4));
         }
 
         mymap.on('dblclick', addMarkerToMap);
