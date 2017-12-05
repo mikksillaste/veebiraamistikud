@@ -17,6 +17,18 @@
     </div>
     <div id="mapid"></div>
     <script>
+        var markers = [
+            {
+                "text": "Test1",
+                "lat": 58.53,
+                "lng": 25.33
+            },
+            {
+                "text": "Test2",
+                "lat": 59.1421,
+                "lng": 24.8346
+            } ];
+
         var mymap = L.map('mapid', {
             center: [58.53, 25.33],
             zoom: 8,
@@ -26,6 +38,13 @@
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
+
+        for ( var i=0; i < markers.length; ++i )
+        {
+            L.marker( [markers[i].lat, markers[i].lng] )
+                .bindPopup(markers[i].text)
+                .addTo(mymap);
+        }
 
         var markersLayer = L.layerGroup().addTo(mymap);
 
