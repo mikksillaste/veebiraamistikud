@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
             integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
             crossorigin=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
     <div id="textbox">
@@ -17,17 +18,35 @@
     </div>
     <div id="mapid"></div>
     <script>
-        var markers = [
-            {
-                "text": "Test1",
-                "lat": 58.53,
-                "lng": 25.33
+//        var markers = [
+//            {
+//                "text": "Test1",
+//                "lat": 58.53,
+//                "lng": 25.33
+//            },
+//            {
+//                "text": "Test2",
+//                "lat": 59.1421,
+//                "lng": 24.8346
+//            } ];
+
+        var endpoint = 'http://127.0.0.1:8000/api/data';
+        var markers = [];
+
+        $.ajax({
+            method: "GET",
+            url: endpoint,
+            // Kui päring edukas, siis map'ime andmed. Nimed = inimese_nimi ja h22lteArv = h22lte_arv
+            success: function (data) {
+                console.log(data);
             },
-            {
-                "text": "Test2",
-                "lat": 59.1421,
-                "lng": 24.8346
-            } ];
+            // Kui päring ebaõnnestub, siis logime konsooli error'i
+            error: function (error_data) {
+                console.log("error");
+                console.log(error_data);
+            }
+        });
+
 
         var mymap = L.map('mapid', {
             center: [58.53, 25.33],
