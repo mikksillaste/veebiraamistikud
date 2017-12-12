@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Firebase näide</title>
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+</head>
+<body>
+    <h2>Firebase Näide</h2>
+        <input type='text' id='messageInput'  placeholder='Sisesta tekst...'>
+        <button type="button" onclick="savedata()">Salvesta</button>
+    <h2>Results</h2>
+        <textarea rows="10" cols="50" id="results"></textarea>
+<script>
+    var config = {
+        apiKey: "AIzaSyBuJXviQTOP9-V7cko4fw6Z7PEtsQP6fBE",
+        authDomain: "firebaseExample.firebaseapp.com",
+        databaseURL: "https://fir-example-b68c7.firebaseio.com",
+        projectId: "firebaseExample",
+        storageBucket: "",
+        messagingSenderId: "6465161516"
+    };
+    firebase.initializeApp(config);
+
+    var messageField = document.getElementById('messageInput');
+    var messageResults = document.getElementById('results');
+
+    function savedata(){
+        var message = messageField.value;
+
+        firebase.database().ref().child('messageField').push({fieldName:'messageField', text:message});
+        messageField.value = '';
+
+    }
+
+    firebase.database().ref().child("messageField").on("child_added", function(data){
+        messageResults.innerHTML += data.val().text + '\n';
+        console.log(data.val().text);
+    });
+
+</script>
+
+</body>
+</html>
